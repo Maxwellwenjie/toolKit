@@ -1,0 +1,28 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        LinkedList<List<Integer>> res = new LinkedList<>();
+        recursion(res, root, 1);
+        return res;
+    }
+    
+    private void recursion(LinkedList<List<Integer>> res, TreeNode node, int depth){
+        if(node == null) return;
+        if(depth > res.size()) res.addFirst(new ArrayList<>()); //在头部插入一个List
+        res.get(res.size()-depth).add(node.val);
+        recursion(res, node.left, depth+1);
+        recursion(res, node.right, depth+1);
+    }
+}
+
+*层次遍历递归法，递归函数参数中有depth(深度信息)
+*LinkedList的get()函数和addFirst()函数
+*get(int index)  index属于[0,list.size())

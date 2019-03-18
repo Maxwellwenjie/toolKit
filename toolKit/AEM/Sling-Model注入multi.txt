@@ -1,4 +1,4 @@
-@Model(adaptables=Resource.class)
+﻿@Model(adaptables=Resource.class)
 public class InfoComponent {
 
 	@Inject @Default(values="abcd")
@@ -13,9 +13,62 @@ public class InfoComponent {
 	}
 	
 }
-
+*方式一:直接注入multifield的Resource ，然后在页面上listChildren
 *<div data-sly-list.head="${InfoComponent.info_multi.listChildren}">
 *     <h3>${head.multi_text}</h3>
 *     <h3>${head.multi_checkbox}</h3>
 *     <h3>${head.multi_path}</h3>
 *<div/>
+
+
+
+@Model(adaptables=Resource.class)
+public class InfoComponent {
+
+	@Inject @Default(values="abcd")
+    private String text;
+	
+	@ChildResource @Optional
+    public List<MultiModel> info_multi;
+
+	public String getText() {
+		return text;
+	}
+}
+@Model(adaptables = Resource.class)
+public class MultiModel {
+
+	@ValueMapValue @Optional
+	private String multi_text;
+	
+	@ValueMapValue @Optional
+	private boolean multi_checkbox;
+	
+	@ValueMapValue @Optional
+	private String multi_path;
+
+	public String getMulti_text() {
+		return multi_text;
+	}
+
+	public boolean isMulti_checkbox() {
+		return multi_checkbox;
+	}
+
+	public String getMulti_path() {
+		return multi_path;
+	}
+}
+*方式二:@ChildResource @ValueMapValue 注入Sling-Model 这样程序的可读性更好
+*<sly data-sly-repeat.item="${InfoComponent.info_multi}">
+*	 <p>Sling-multi.proper1 === ${item.multi_text}</p>
+*    <p>Sling-multi.proper2 === ${item.multi_path}</p>
+*</sly>
+
+
+
+
+
+
+
+

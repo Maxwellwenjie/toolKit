@@ -1,0 +1,30 @@
+*resourceResolver.getResource(String url) resourceResolver可以通过URL得到resource
+*ResourceResolverFactory.getServiceResourceResolver(Map m) ResourceResolverFactory可以通过用户maping得到ResourceResolver
+
+@Model(adaptables=Resource.class)
+public class InfoComponent {
+
+	@SlingObject
+	private ResourceResolver resourceResolver;
+
+	private String name;
+	private String path;
+
+	@PostConstruct
+	public void init() {
+		Resource resource = resourceResolver.getResource("/content/t01-homepage");
+		name = resource.getName();
+		path = resource.getPath();
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public String getPath() {
+		return path;
+	}
+}
+*@PostConstruct注入后执行的方法
+*<p>Sling-Model.Resource = ${InfoComponent.name}</p>
+*<p>Sling-Model.Resource = ${InfoComponent.path}</p>
