@@ -1,0 +1,61 @@
+https://forums.adobe.com/message/9697997#9697997  Felix-scr-annotations
+http://felix.apache.org/documentation/subprojects/apache-felix-maven-scr-plugin/apache-felix-maven-scr-plugin-use.html 官网
+https://forums.adobe.com/message/10614781#10614781  两种定时执行的方法
+根目录的pom.xml文件  purpose: automatic generation of the compenent and metadata descriptors
+<!-- Apache Felix SCR Plugin -->
+<plugin>
+   <groupId>org.apache.felix</groupId>
+   <artifactId>maven-scr-plugin</artifactId>
+   <version>1.20.0</version>
+		<executions>
+		   <execution>
+		   <id>generate-scr-scrdescriptor</id>
+		   <goals>
+				<goal>scr</goal>
+		   </goals>
+			<configuration>
+			<!-- Private service properties for all services. -->
+				  <properties>
+					   <service.vendor>Adobe</service.vendor>
+				  </properties>
+			</configuration>
+			</execution>
+        </executions>
+		<configuration>
+			<outputDirectory>${project.build.directory}/classes</outputDirectory>
+		</configuration>
+</plugin>
+**********************Maven中的executions是什么意思**************************
+
+
+
+<!-- Apache Felix Bundle Plugin -->
+<plugin>
+	   <groupId>org.apache.felix</groupId>
+	   <artifactId>maven-bundle-plugin</artifactId>
+	   <version>2.5.3</version>
+	   <inherited>true</inherited>
+</plugin>
+
+
+<!-- OSGi Dependencies -->
+<dependency>
+	  <groupId>org.apache.felix</groupId>
+	  <artifactId>org.apache.felix.scr</artifactId>
+	  <version>2.0.10</version>
+	  <scope>provided</scope>
+</dependency>
+
+<dependency>
+	  <groupId>org.apache.felix</groupId>
+	  <artifactId>org.apache.felix.scr.annotations</artifactId>
+	  <version>1.9.6</version>
+</dependency>
+
+
+
+
+
+
+
+

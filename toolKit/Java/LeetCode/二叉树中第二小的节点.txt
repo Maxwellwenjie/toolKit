@@ -1,0 +1,46 @@
+*自己想的解法,通过成员变量TreeSet实现对二叉树的排序,然后poll出第二小的节点
+*时间复杂度O(n),空间复杂度O(n)
+class Solution {
+    TreeSet<Integer> set = new TreeSet<>();
+    public int findSecondMinimumValue(TreeNode root) {
+        recursion(root);
+        int a = set.pollFirst();
+        Integer res = set.pollFirst();
+        if(res == null){
+            return -1;
+        }else{
+            return res;
+        }
+    }
+    
+    private void recursion(TreeNode node){
+        if(node == null) return;
+        else set.add(node.val);
+        recursion(node.left);
+        recursion(node.right);
+    } 
+}
+
+*题目描述:给定一个非空特殊的二叉树，每个节点都是正数，并且每个节点的子节点数量只能为 2 或 0。如果一个节点有两个子节点的话，那么这个节点的值不大于它的子节点的值。 
+*官方解法：这也能消耗34.2M的内存？
+class Solution {
+    int min1;
+    long ans = Long.MAX_VALUE;
+    
+    public int findSecondMinimumValue(TreeNode root) {
+        min1 = root.val;
+        dfs(root);
+        return ans < Long.MAX_VALUE ? (int) ans : -1;
+    }
+    
+    public void dfs(TreeNode node){
+        if(node != null){
+            if(min1 < node.val && node.val < ans){
+                ans = node.val;
+            }else if(min1 == node.val){
+                dfs(node.left);
+                dfs(node.right);
+            }
+        }
+    }
+}

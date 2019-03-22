@@ -1,0 +1,24 @@
+Externalizer is an OSGI service programmatically transform a resource path into an external and absolute URL 
+by prefixing the path with a pre-configured DNS
+(e.g. /content/mysite/mypage)  (for example, http://www.site.com/content/mysite/mypage) 
+
+https://7dy7fqag0ahy3a8.bigcomrnerce.com/au/experience-manager/6-4/sites/developing/using/externalizer.html
+
+Java 代码中加两句话
+Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
+String myExternalizedUrl = externalizer.externalLink(resolver, Externalizer.LOCAL, "/my/page") + ".html";
+
+这两句话就是读取OSGI config--Day CQ Link Externalizer 中的路径
+
+	@SlingObject
+	private ResourceResolver resolver;
+    @Reference
+    Externalizer externalizer;
+    
+    String myExternalizedUrl; 
+    @PostConstruct
+	public void init() {
+    	externalizer = resolver.adaptTo(Externalizer.class);  
+    	myExternalizedUrl = externalizer.externalLink(resolver, Externalizer.LOCAL, "/my/page") + ".html";
+    }
+上面那样写会报错，Resolve和externalizer要通过注解注入。

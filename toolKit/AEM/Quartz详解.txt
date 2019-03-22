@@ -1,0 +1,33 @@
+﻿http://localhost:4502/system/console/status-slingscheduler 查看Job的状态
+https://blog.csdn.net/justdoit_potato/article/details/72841157   Quartz详解
+1.Quartz是一个开源作业调度框架
+
+2.核心概念:  调度器(Scheduler)、任务(Job)和触发器(Trigger)
+	*Job：是一个接口，只有一个方法void execute(JobExecutionContext context)，开发者实现该接口定义运行任务
+	*JobDetail类 描述Job的实现类及其它相关的静态信息 JobDetail(java.lang.String name, java.lang.String group, java.lang.Class jobClass)反射机制实例化Job
+	*Trigger：是一个类，描述触发Job执行的时间触发规则。主要有SimpleTrigger和CronTrigger
+	*Calendar：org.quartz.Calendar和java.util.Calendar不同，它是一些时间点的集合
+	*Scheduler：代表一个Quartz的独立运行容器，Trigger和JobDetail可以注册到Scheduler中.一个Job可以对应多个Trigger，但一个Trigger只能对应一个Job
+	*ThreadPool 任务共享线程池中的线程
+
+
+
+Job : com.service.schedulers.SampleOsgiScheduledTask2.8953, class: com.service.schedulers.SampleOsgiScheduledTask2,
+concurrent: true, bundleId: 562, serviceId: 8953
+Trigger : Trigger 'DEFAULT.com.service.schedulers.SampleOsgiScheduledTask2.8953':  triggerClass: 'org.quartz.impl.triggers.CronTriggerImpl calendar: 'null' misfireInstruction: 0 
+nextFireTime: Wed Jan 01 12:00:00 CST 2020
+
+Job : com.service.schedulers.SampleOsgiScheduledTask2.7270, class: com.service.schedulers.SampleOsgiScheduledTask2,
+concurrent: true, bundleId: 557, serviceId: 7270
+Trigger : Trigger 'DEFAULT.com.service.schedulers.SampleOsgiScheduledTask2.7270':  triggerClass: 'org.quartz.impl.triggers.CronTriggerImpl calendar: 'null' misfireInstruction: 0 
+nextFireTime: Wed Jan 01 12:00:00 CST 2020
+
+
+
+
+
+
+
+
+
+

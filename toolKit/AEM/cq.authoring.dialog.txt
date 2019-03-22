@@ -1,0 +1,2 @@
+cq.authoring.dialog is a global category and applies to all Touch UI dialogs. 
+cq.authoring.dialog是一个全局类别，适用于所有Touch UI对话框

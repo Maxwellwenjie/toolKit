@@ -1,0 +1,180 @@
+http://www.cnblogs.com/TankXiao/archive/2012/02/13/2342672.html#whathttp
+1.什么是HTTP协议
+	协议是指两台计算机通信遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器
+
+2.Web服务器，浏览器,代理服务器
+				request
+	browser---------------->web server	
+		   <----------------	
+				response
+				
+	browser<------->proxy<--------->web server
+
+3.Proxy的作用
+	1. 提高访问速度， 大多数的代理服务器都有缓存功能。
+	2. 突破限制， 也就是FQ了
+	3. 隐藏身份。
+	
+4.URL详解
+	URL(Uniform Resource Locator) 地址用于描述一个网络上的资源,  基本格式如下
+	schema://host[:port#]/path/.../[?query-string][#anchor]
+	
+	scheme               指定低层使用的协议(例如：http, https, ftp)
+	host                 HTTP服务器的IP地址或者域名
+	port#                HTTP服务器的默认端口是80，这种情况下端口号可以省略。如果使用了别的端口，必须指明，例如 http://www.cnblogs.com:8080/
+	path                 访问资源的路径
+	query-string       	 发送给http服务器的数据
+	anchor-              锚
+	
+	URL 的一个例子
+	http://www.mywebsite.com/sj/test/test.aspx?name=sviergn&x=true#stuff
+
+	Schema:                 http
+	host:                   www.mywebsite.com
+	path:                   /sj/test/test.aspx
+	Query String:           name=sviergn&x=true
+	Anchor:                 stuff
+	
+	
+5.HTTP协议是无状态的	
+	同一个客户端的这次请求和上次请求是没有对应关系，对http服务器来说，它并不知道这两个请求来自同一个客户端。 为了解决这个问题， Web程序引入了Cookie机制来维护状态
+	
+	
+6.打开一个网页需要浏览器发送很多次Request	
+	1. 当你在浏览器输入URL http://www.cnblogs.com 的时候，浏览器发送一个Request去获取 http://www.cnblogs.com 的html.  服务器把Response发送回给浏览器.
+	2. 浏览器分析Response中的 HTML，发现其中引用了很多其他文件，比如图片，CSS文件，JS文件。
+	3. 浏览器会自动再次发送Request去获取图片，CSS文件，或者JS文件。
+	4. 等所有的文件都下载成功后。 网页就被显示出来了。	
+	
+7.HTTP消息的结构
+	先看Request 消息的结构,   
+	Request 消息分为3部分，第一部分叫Request line, 第二部分叫Request header, 第三部分是body. header和body之间有个空行
+	结构如下
+	******************************
+	Method/path-to-resource Http/version-number
+	Header-Name-1 : value
+	Header-Name-2 : value
+	
+	Optional request body
+	******************************
+	第一行中的Method表示请求方法,比如"POST","GET",  Path-to-resoure表示请求的资源， Http/version-number 表示HTTP协议的版本号
+	当使用的是"GET" 方法的时候， body是为空的
+	
+	
+	再看Response消息的结构, 
+	和Request消息的结构基本一样。 同样也分为三部分,第一部分叫Response line, 第二部分叫Response header，第三部分是body. header和body之间也有个空行
+	******************************
+	Http/version-number status code message 
+	Header-Name-1 : value
+	Header-Name-2 : value
+	
+	Optional Response body
+	******************************
+
+
+8.Get和Post方法的区别
+	HTTP中的GET, POST, PUT, DELETE就对应着对这个资源的查，改，增，删4个操作	
+	GET一般用于获取/查询资源信息，而POST一般用于更新资源信息.
+	区别:
+	1. GET提交的数据会放在URL之后，以?分割URL和传输数据，参数之间以&相连，如EditPosts.aspx?name=test1&id=123456.  POST方法是把提交的数据放在HTTP包的Body中.
+	2. GET提交的数据大小有限制（因为浏览器对URL的长度有限制），而POST方法提交的数据没有限制.
+	3. GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值
+	4. GET方式提交数据，会带来安全问题.户名和密码将出现在URL上.
+	
+9.状态码
+	HTTP/1.1中定义了5类状态码
+	1XX  提示信息 - 表示请求已被成功接收，继续处理
+	2XX  成功 - 表示请求已被成功接收，理解，接受
+	3XX  重定向 - 要完成请求必须进行更进一步的处理
+	4XX  客户端错误 -  请求有语法错误或请求无法实现
+	5XX  服务器端错误 -   服务器未能实现合法的请求
+	
+	
+10.forward与sendRedirect区别	
+	1、转发使用的是RequestDispatcher.forward()方法;重定向使用的是HttpServletResponse.sendRedirect(); (方法的对象不同)
+	2、转发：浏览器URL的地址栏不变。重定向：浏览器URL的地址栏改变；(每一个URL对应一个Resource)
+	3、转发是服务器行为，重定向是客户端行为；
+	4、转发是浏览器只做了一次访问请求。重定向是浏览器做了至少两次的访问请求；(根本区别)
+	5、转发2次跳转之间传输的信息不会丢失，重定向2次跳转之间传输的信息会丢失（request范围）。
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

@@ -1,0 +1,16 @@
+//Use JQuery AJAX request to post data to a Sling Servlet
+
+        $.ajax({
+             type: 'POST',
+             url:'/bin/emailServlet',
+             data:'firstName='+ firstName+'&lastName='+ lastName+'&workEmail='+ workEmail+'&msg='+msg,
+             complete: function(xhr) {
+                if( xhr.status === 200 ) {
+            	alert(xhr.status)
+                    alert("Email Sent Successfully")
+                } else {
+               		alert(xhr.status)
+                    alert("Email Sent failed")
+                }
+             }
+         });

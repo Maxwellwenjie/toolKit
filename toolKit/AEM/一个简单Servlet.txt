@@ -1,0 +1,56 @@
+@Component(service = Servlet.class, property = {
+		  "sling.servlet.methods=" + HttpConstants.METHOD_GET,
+		  "sling.servlet.paths=/services/testServlet" })
+public class ResourceTypePostServlet extends SlingAllMethodsServlet {
+	private static final long serialVersionUID = 2L;
+	protected final Logger log = LoggerFactory.getLogger(this.getClass());
+   
+	@Override
+	protected void doGet(final SlingHttpServletRequest request, final SlingHttpServletResponse response)
+			throws ServletException, IOException {
+		
+		PrintWriter out=response.getWriter();
+		log.info("This is Servlet doGet method");
+		out.print("nihap");
+		log.info("Out of Servlet doGet method");
+	}
+	
+   protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
+      response.setContentType("text/plain");
+      response.getOutputStream().print("Hello ResourceTypePostServlet World!");
+   }
+}
+*OutputStream字节流 PrintWriter字符流
+*可以通过form的action来调用servlet
+*<form action="/services/testServlet" method="post">
+*   <input type="submit" value="提交"/><br>
+*</form>
+
+*Servlet调用的几种方式
+*1.通过URL调用		get请求
+*2.通过提交表单     get/post请求
+*3.超链接      		get请求 <a href="/services/testServlet">Link</a>
+*4.javascript写一个函数，调用这个函数
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

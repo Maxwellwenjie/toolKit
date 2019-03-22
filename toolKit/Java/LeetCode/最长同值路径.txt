@@ -1,0 +1,27 @@
+*One path can only have two ends
+*好难啊这题,这是简单级别的吗？
+*递归的过程中每次更新res的值
+class Solution {
+    int res;
+    public int longestUnivaluePath(TreeNode root) {
+        res = 0;
+        arrowLength(root);
+        return res;
+    }
+    
+    public int arrowLength(TreeNode node){
+        if(node == null) return 0;
+        int left = arrowLength(node.left);
+        int right = arrowLength(node.right);
+        int arrowLeft = 0, arrowRight = 0;
+        if(node.left != null && node.left.val == node.val){
+            arrowLeft += left + 1;
+        }
+        
+        if(node.right != null && node.right.val == node.val){
+            arrowRight += right + 1;
+        }
+        res = Math.max(res, arrowLeft + arrowRight);// 路径长度为节点数减1所以此处不加1
+        return Math.max(arrowLeft, arrowRight);
+    }
+}

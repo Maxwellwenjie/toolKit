@@ -1,0 +1,107 @@
+*1.之前的，利用Servlet填充datasource----acs-commons/components/utilities/genericlist/datasource/datasource.jsp	
+		// set fallback
+		request.setAttribute(DataSource.class.getName(), EmptyDataSource.instance());
+
+		Locale locale = request.getLocale();
+
+		Resource datasource = resource.getChild("datasource");
+		ResourceResolver resolver = resource.getResourceResolver();
+		ValueMap dsProperties = ResourceUtil.getValueMap(datasource);
+		String genericListPath = dsProperties.get("path", String.class);
+		if (genericListPath != null) {
+			Page genericListPage = pageManager.getPage(genericListPath);
+			if (genericListPage != null) {
+				GenericList list = genericListPage.adaptTo(GenericList.class);
+				if (list != null) {
+					List<Resource> fakeResourceList = new ArrayList<Resource>();
+					for (GenericList.Item item : list.getItems()) {
+						ValueMap vm = new ValueMapDecorator(new HashMap<String, Object>());
+						vm.put("value", item.getValue());
+						vm.put("text", item.getTitle(locale));
+
+						fakeResourceList.add(new ValueMapResource(resolver, new ResourceMetadata(), "nt:unstructured", vm));
+					}
+					
+					DataSource ds = new SimpleDataSource(fakeResourceList.iterator());
+					request.setAttribute(DataSource.class.getName(), ds);
+				}
+
+			}
+		}
+		%>
+
+Servlet版本  读取OSGIconfig 麻烦
+@Component(service = Servlet.class, property = {
+		  "sling.servlet.methods=" + HttpConstants.METHOD_GET,
+		  "sling.servlet.paths=" + "/apps/comp/getDropDownList" })
+public class DemoServlet extends SlingSafeMethodsServlet {
+	
+	
+	private static final long serialVersionUID = 1L;
+	private String[] label;
+	
+	@Reference
+	SocialMediaService socialMediaService;
+
+	
+	@Override
+	protected void doGet(final SlingHttpServletRequest request, final SlingHttpServletResponse response)
+			throws ServletException, IOException {
+
+		label=socialMediaService.getSocial();
+		request.setAttribute(DataSource.class.getName(), EmptyDataSource.instance());
+		  
+		ResourceResolver resolver = request.getResourceResolver();		 
+		//Create an ArrayList to hold data
+		List<Resource> fakeResourceList = new ArrayList<Resource>();		 
+		ValueMap vm = null; 		 		 
+		//Add 5 values to drop down! 
+		for (int i = 0; i < label.length; i++) {
+			// allocate memory to the Map instance
+			vm = new ValueMapDecorator(new HashMap<String, Object>());
+			
+			// Specify the value and text values
+			String Value =label[i];
+			String Text = label[i].split(";")[0];
+			// populate the map
+			vm.put("value", Value);
+			vm.put("text", Text);
+			fakeResourceList.add(new ValueMapResource(resolver, new ResourceMetadata(), "nt:unstructured", vm));
+		}
+		
+		//Create a DataSource that is used to populate the drop-down control
+		DataSource ds = new SimpleDataSource(fakeResourceList.iterator());
+		request.setAttribute(DataSource.class.getName(), ds);
+		
+	}
+}
+		
+*2.Dynamic dropdown with DataSource   https://www.youtube.com/watch?v=PqHOgKBs30U  之前用的datasource简直愚蠢
+	*http://localhost:4502/miscadmin#/etc/acs-commons/lists  在这里配置自己的DataSource
+	*DataSource的 sling:resourceType-acs-commons/components/utilities/genericlist/datasource
+	*DataSource的 path-/etc/acs-commons/lists/countrylist
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

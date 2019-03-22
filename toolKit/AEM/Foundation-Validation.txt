@@ -1,0 +1,70 @@
+*jQuery based validator, i.e. $.validator.register({})  基于jQuery的验证器，即$.validator.register({})
+	** is deprecated starting in AEM 6.2  6.2后不推荐使用
+	
+*foundation-validation.
+
+*How to Hook Validator to Dialog Field
+	**Most Granite UI components have a validation attribute:data-validation
+	**not using Granite UI components:validation
+	**validations will be triggered when the dialog submit button is clicked 提交时触发验证
+	
+*Foundation validation API
+https://helpx.adobe.com/experience-manager/6-3/sites/developing/using/reference-materials/granite-ui/api/jcr_root/libs/granite/ui/components/coral/foundation/clientlibs/foundation/js/validation/index.html#adaptto-interface
+
+
+*Register Selector
+
+*Register Adapter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

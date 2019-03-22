@@ -1,0 +1,99 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Service;
+import org.apache.felix.scr.annotations.Property;
+
+@Component
+@Service(value = Runnable.class)
+@Property( name = "scheduler.expression", value = "0 * * * * ?")
+public class ScheduledCronJob implements Runnable {
+
+    /** Default log. */
+    protected final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    public void run() {
+        log.info("Executing a cron job (job#1) through the whiteboard pattern");
+    }
+//
+}
+*使用Apache Felix SCR的方式为什么component注册不上去
+*缺少Felix扫描的插件
+
+<plugin>
+	<groupId>org.apache.felix</groupId>
+	<artifactId>maven-scr-plugin</artifactId>
+	<version>1.23.0</version>
+</plugin>
+
+<plugin>
+   <groupId>org.apache.felix</groupId>
+   <artifactId>maven-scr-plugin</artifactId>
+   <version>1.20.0</version>
+		<executions>
+		   <execution>
+		   <id>generate-scr-scrdescriptor</id>
+		   <goals>
+				<goal>scr</goal>
+		   </goals>
+			<configuration>
+			<!-- Private service properties for all services. -->
+				<properties>
+					<service.vendor>Adobe</service.vendor>
+				</properties>
+			</configuration>
+			</execution>
+        </executions>
+		<configuration>
+				<outputDirectory>${project.build.directory}/classes</outputDirectory>
+		</configuration>
+</plugin>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

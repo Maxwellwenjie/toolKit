@@ -1,0 +1,22 @@
+http://localhost:4502/crx/explorer/index.jsp  创建用户页面
+
+PeficientDigit.core:datawrite=wenjie		  配置权限格式
+bundleId:subServiceName=principalNames
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

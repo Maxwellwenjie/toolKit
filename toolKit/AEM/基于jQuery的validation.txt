@@ -1,0 +1,20 @@
+$(document).ready((function(ns, window, document, $, Granite, undefined) {
+  'use strict';
+
+  var PATHBROWSER_SELECTOR = 'input[name="./linkURL"]';
+
+  $.validator.register({
+    selector: PATHBROWSER_SELECTOR,
+    validate: function(el) {
+
+      var value=el.val();
+
+        if(!el.val().endsWith(".pdf")){
+            //alert("please input local url");
+            return Granite.I18n.get('The file must be PDF.', 4);
+        }
+
+    }
+  }); 
+
+})(window.aemTouchUIValidation = window.aemTouchUIValidation || {}, window, document, Granite.$, Granite)); 

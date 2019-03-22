@@ -1,0 +1,2 @@
+*Java讲究封装
+*Request是请求的封装，Response是响应的封装· 
